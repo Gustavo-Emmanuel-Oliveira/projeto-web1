@@ -11,7 +11,7 @@
 
     <body>
         <div class="page">
-            <form method="POST" class="formLogin" action="criar" enctype="multipart/form-data">
+            <form method="post" class="formLogin" action="criar" enctype="multipart/form-data">
                 <h1>Cadastro</h1>
   
                 <label for="email">E-mail</label>

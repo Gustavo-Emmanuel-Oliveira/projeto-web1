@@ -79,11 +79,11 @@
 
                   </form>
                 </div>
-                <a href="./CadastroController"><button class="btn btn-outline-success my-2 my-sm-0 conta" ><i class="fa-solid fa-user"></i></button></a>
+                <a href="./cadastro-usu"><button class="btn btn-outline-success my-2 my-sm-0 conta" ><i class="fa-solid fa-user"></i></button></a>
               </nav>
         </header>
     <main>
-                <h2>Página principal</h2>
+                
 
     </main>
     

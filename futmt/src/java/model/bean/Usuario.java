@@ -7,7 +7,7 @@ package model.bean;
 
 /**
  *
- * @author Senai
+ * @author consa
  */
 public class Usuario {
    private static int idUsuario;
@@ -19,6 +19,8 @@ public class Usuario {
 
     public Usuario() {
     }
+    
+    
 
    
     public Usuario(String nome, String senha, String email, String telefone, String cpf) {
@@ -77,4 +79,6 @@ public class Usuario {
         this.cpf = cpf;
     }
 
+   
+    
 }

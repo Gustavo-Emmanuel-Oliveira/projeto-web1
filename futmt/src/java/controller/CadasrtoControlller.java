@@ -5,7 +5,9 @@
  */
 package controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +16,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.bean.Usuario;
+import javax.servlet.http.Part;
 import model.dao.UsuarioDAO;
+import model.bean.Usuario;
 
 /**
  *
- * @author Senai
+ * @author consa
  */
 @WebServlet(urlPatterns = "/criar")
 @MultipartConfig
-public class CadastroController extends HttpServlet {
+public class CadasrtoControlller extends HttpServlet {
 
     Usuario usuario = new Usuario();
     UsuarioDAO usuarioDao = new UsuarioDAO();
@@ -64,13 +67,14 @@ public class CadastroController extends HttpServlet {
         if (usuario.getNome().trim().equals("") || usuario.getSenha().trim().equals("") || usuario.getEmail().trim().equals("") || usuario.getCpf().trim().equals("") || usuario.getTelefone().trim().equals("")) {
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Por favor, preencha todos os campos.');");
-            out.println("window.location.href = './CadastroController';");
+            out.println("window.location.href = './cadastro-usu';");
             out.println("</script>");
         } else {
             usuarioDao.create(usuario);
-            response.sendRedirect("./CadastroController");
+            response.sendRedirect("./cadastro-usu");
         }
 
     }
+
 
 }

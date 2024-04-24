@@ -27,14 +27,14 @@ public class LoginController extends HttpServlet {
 
     Usuario usuario = new Usuario();
     UsuarioDAO usuarioDao = new UsuarioDAO();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nextPage = "/pages/login.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextPage);
         dispatcher.forward(request, response);
-
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,22 +51,32 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
         protected void logar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         usuario.setEmail(request.getParameter("email"));
         usuario.setSenha(request.getParameter("senha"));
-        if (usuario.getEmail().trim().equals("")||usuario.getSenha().trim().equals("")) {
+        if (usuario.getEmail().trim().equals("") || usuario.getSenha().trim().equals("")) {
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Por favor, preencha todos os campos.');");
-            out.println("window.location.href = './LoginController';");
+            out.println("window.location.href = './cadastro-usu';");
             out.println("</script>");
         } else {
-           usuarioDao.logar(usuario);
-           response.sendRedirect("redirect.jsp");
-
+            usuarioDao.logar(usuario);
+            if (Usuario.getIdUsuario() > 0) {
+                if (Usuario.getIdUsuario() == 1) {
+                    response.sendRedirect("./home");
+                } else {
+                    response.sendRedirect("./home");
+                }
+            } else {
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Por favor, faça o cadastro.');");
+                out.println("window.location.href = './cadastro-usu';");
+                out.println("</script>");
+            }
         }
 
     }
+
 }

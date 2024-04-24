@@ -10,11 +10,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 import model.bean.Usuario;
 
 /**
  *
- * @author Senai
+ * @author consa
  */
 public class UsuarioDAO {
     
@@ -57,7 +61,7 @@ public class UsuarioDAO {
             Connection conexao = Conexao.conectar();
             PreparedStatement stmt = null;
             
-            stmt = conexao.prepareStatement("INSERT INTO usuario(nome, senha, email, telefone, cpf) VALUES (?,?,?,?,?)");
+            stmt = conexao.prepareCall("INSERT INTO usuario(nome, senha, email, telefone, cpf) VALUES (?,?,?,?,?)");
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getSenha());
             stmt.setString(3, usuario.getEmail());
@@ -73,4 +77,33 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
+    public List<Usuario> leia() {
+        List<Usuario> usuario = new ArrayList<>();
+        try {
+            Connection conexao = Conexao.conectar();
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+
+            stmt = conexao.prepareStatement("SELECT * FROM usuario");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Usuario usu = new Usuario();
+                Usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usu.setNome(rs.getString("nome"));
+                usu.setSenha(rs.getString("senha"));
+                usu.setTelefone(rs.getString("telefone"));
+                usu.setCpf(rs.getString("cpf"));
+                usuario.add(usu);
+            }
+
+            rs.close();
+            stmt.close();
+            conexao.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuario;
+    }
+    
 }
